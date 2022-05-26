@@ -6,7 +6,7 @@ import { Author } from 'src/author/author.schema';
 
 export type TrackDocument = Track & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Track {
     @Prop({ required: true })
     name: string

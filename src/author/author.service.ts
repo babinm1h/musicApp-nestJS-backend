@@ -26,4 +26,9 @@ export class AuthorService {
 
         return author
     }
+
+    async getAll(): Promise<Author[]> {
+        const authors = await this.authorModel.find()
+        return authors
+    }
 }

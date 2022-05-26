@@ -21,6 +21,11 @@ export class TrackController {
         return this.trackService.create(dto, img[0], audio[0])
     }
 
+    @Get(":id")
+    getOne(@Param("id") id: mongoose.Types.ObjectId) {
+        return `this.trackService.getOne(id)`
+    }
+
 
     @Get("/search")
     search(@Query("query") query: string) {
@@ -34,11 +39,6 @@ export class TrackController {
         const offset = page * limit - limit
 
         return this.trackService.getAll(+limit, offset)
-    }
-
-    @Get(":id")
-    getOne(@Param("id") id: mongoose.Types.ObjectId) {
-        return this.trackService.getOne(id)
     }
 
 

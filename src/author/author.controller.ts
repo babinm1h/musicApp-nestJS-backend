@@ -16,4 +16,9 @@ export class AuthorController {
     getOne(@Param("id") id: mongoose.Types.ObjectId) {
         return this.authorService.getOne(id)
     }
+
+    @Get()
+    getAll(){
+        return this.authorService.getAll()
+    }
 }

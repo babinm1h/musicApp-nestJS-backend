@@ -11,13 +11,16 @@ import * as path from 'path';
 
 @Module({
     imports: [
-        ServeStaticModule.forRoot({ rootPath: path.resolve(__dirname, "static") }),
+        ServeStaticModule.forRoot({
+            rootPath: path.resolve(__dirname, "", "static"),
+            serveStaticOptions: { index: false }
+        }),
         ConfigModule.forRoot(),
         MongooseModule.forRoot(process.env.DB_URI),
         TrackModule,
-        UsersModule,
         AuthorModule,
         FileModule,
+        UsersModule,
     ]
 })
 

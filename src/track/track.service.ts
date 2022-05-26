@@ -32,14 +32,14 @@ export class TrackService {
 
 
     async getAll(limit = 5, offset = 0) {
-        const tracks = await this.trackModel.find().skip(offset).limit(limit).populate("author")
+        const tracks = await this.trackModel.find().sort({ createdAt: -1 }).skip(offset).limit(limit).populate("author")
         const allTracks = await this.trackModel.find()
         return { totalCount: allTracks.length, tracks }
     }
 
 
     async getOne(id: mongoose.Types.ObjectId): Promise<Track> {
-        let track = await this.trackModel.findById(id).populate("comments") as any;
+        let track = await (await this.trackModel.findById(id)).populate("comments") as any;
         track = await this.commentModel.populate(track, { path: "comments.user" })
         return track
     }

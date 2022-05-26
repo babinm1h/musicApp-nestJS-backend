@@ -4,27 +4,11 @@ import { Model } from "mongoose";
 import { User, UserDocument } from "./user.schema";
 
 
-
 @Injectable()
-
 export class UsersService {
-    constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
-
-    async register() {
-        return
-    }
+    constructor(
+        @InjectModel(User.name) private userModel: Model<UserDocument>
+    ) { }
 
 
-    async login() {
-        return
-    }
-
-
-    async check() {
-        return
-    }
-
-    async logout() {
-        return
-    }
 }

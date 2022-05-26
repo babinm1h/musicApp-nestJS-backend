@@ -15,10 +15,8 @@ export enum FileTypes {
 export class FileService {
 
 
-    createFile(type: FileTypes, file): string {
+    createFile(type: FileTypes, file: Express.Multer.File): string {
         try {
-            console.log(path.resolve());
-
             const fileExt = file.originalname.split(".").pop()
             const fileName = uuid.v4() + `.${fileExt}`
             const filePath = path.resolve(__dirname, "..", "static", type)
