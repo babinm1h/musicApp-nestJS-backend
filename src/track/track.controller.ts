@@ -23,7 +23,7 @@ export class TrackController {
 
     @Get(":id")
     getOne(@Param("id") id: mongoose.Types.ObjectId) {
-        return `this.trackService.getOne(id)`
+        return this.trackService.getOne(id)
     }
 
 

@@ -39,7 +39,7 @@ export class TrackService {
 
 
     async getOne(id: mongoose.Types.ObjectId): Promise<Track> {
-        let track = await (await this.trackModel.findById(id)).populate("comments") as any;
+        let track = await (await this.trackModel.findById(id)).populate("comments author") as any;
         track = await this.commentModel.populate(track, { path: "comments.user" })
         return track
     }
