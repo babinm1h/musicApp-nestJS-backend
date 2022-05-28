@@ -7,6 +7,7 @@ import { CreateTrackDto } from "./dto/create-track.dto";
 import { Comment, CommentDocument } from "src/comments/comment.schema";
 import { FileService, FileTypes } from "src/file/file.service";
 import mongoose from "mongoose"
+import { User, UserDocument } from "src/users/user.schema";
 
 
 @Injectable()
@@ -17,6 +18,7 @@ export class TrackService {
         @InjectModel(Track.name) private trackModel: Model<TrackDocument>,
         @InjectModel(Author.name) private authorModel: Model<AuthorDocument>,
         @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
+        @InjectModel(User.name) private userModel: Model<UserDocument>,
         private fileService: FileService
     ) { }
 
@@ -64,4 +66,9 @@ export class TrackService {
         return result
     }
 
+
+    async addToPlaylist(trackId: mongoose.Types.ObjectId, userId: mongoose.Types.ObjectId) {
+        const track = await this.userModel.findByIdAndUpdate(userId, { $push: { playlist: trackId } })
+        return track
+    }
 }

@@ -10,7 +10,7 @@ export class UsersService {
     ) { }
 
     async findById(id: mongoose.Types.ObjectId) {
-        const user = await this.userModel.findById(id)
+        const user = await this.userModel.findById(id).populate("playlist")
         if (!user) throw new BadRequestException("User with such ID not found")
         return user
     }

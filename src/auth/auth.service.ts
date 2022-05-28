@@ -16,7 +16,7 @@ export class AuthService {
 
 
     async validateUser(email: string, password: string) {
-        const user = await this.userModel.findOne({ email })
+        const user = await (await this.userModel.findOne({ email })).populate("playlist")
         if (!user) throw new BadRequestException("User with this email not found")
 
         const comparedPassword = await bcrypt.compare(password, user.password)
@@ -36,7 +36,7 @@ export class AuthService {
 
 
     async register(dto: AuthDto) {
-        const candidate = await this.userModel.findOne({ email: dto.email })
+        const candidate = await (await this.userModel.findOne({ email: dto.email })).populate("playlist")
         if (candidate) throw new BadRequestException("User with this email already exist")
 
         const hashedPassword = await bcrypt.hash(dto.password, 6)

@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, UploadedFiles, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query, Request, UploadedFiles, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FileFieldsInterceptor } from "@nestjs/platform-express";
 import { CreateTrackDto } from "./dto/create-track.dto";
 import { TrackService } from "./track.service";
 import mongoose from "mongoose"
+import { JwtGuard } from "src/auth/guards/jwt.guard";
 
 
 @Controller("/tracks")
@@ -21,7 +22,7 @@ export class TrackController {
         return this.trackService.create(dto, img[0], audio[0])
     }
 
-    @Get(":id")
+    @Get("/track/:id")
     getOne(@Param("id") id: mongoose.Types.ObjectId) {
         return this.trackService.getOne(id)
     }
@@ -53,6 +54,11 @@ export class TrackController {
     }
 
 
+    @UseGuards(JwtGuard)
+    @Post('/playlist')
+    addToPlaylist(@Body("trackId") trackId: mongoose.Types.ObjectId, @Request() req) {
+        return this.trackService.addToPlaylist(trackId, req.user._id)
+    }
 }
 
 
